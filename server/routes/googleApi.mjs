@@ -8,7 +8,7 @@ export function googleApi() {
     const question = req.query.question ?? "";
 
     const apiKey = "AIzaSyCPoNEu6vHKa3jv9ph4y2DmLZ6DNvgijOk"; // your key
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemma-3-4b:generateContent?key=${apiKey}`;
 
     // Minimal request payload
     const body = {
