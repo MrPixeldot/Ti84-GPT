@@ -6,7 +6,7 @@
 
 #define WIFI_SSID "MagentaWLAN-F39Y" // Your wifi name
 #define WIFI_PASS "MagentaWLAN-F39Y" // Your wifi password
-#define SERVER "https://interungular-nonprovincially-kindra.ngrok-free.dev" // Your server ip address
+#define SERVER "https://ti84-gpt.onrender.com" // Your server ip address
 #define CHAT_NAME "MrPixeldot" // Your name on the chat program
 #define SECURE // not used
 
