@@ -7,7 +7,7 @@ export function googleApi() {
   router.get("/ask", async (req, res) => {
     const question = req.query.question ?? "";
 
-    const apiKey = "AIzaSyCPoNEu6vHKa3jv9ph4y2DmLZ6DNvgijOk"; // your key
+    const apiKey = process.env.GOOGLE_API_KEY; // your key
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     // Minimal request payload
