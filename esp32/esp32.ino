@@ -73,7 +73,6 @@
   void snap();
   void solve();
   void image_list();
-  void fetch_image();
   void fetch_chats();
   void send_chat();
   void program_list();
@@ -99,8 +98,7 @@
       {5, "launcher", 0, launcher, false},
       {7, "snap", 0, snap, false},
       {8, "solve", 1, solve, true},
-      {9, "image_list", 1, image_list, true},
-      {10, "fetch_image", 1, fetch_image, true},
+      {9, "image_list", 1, image_list, false},
       {11, "fetch_chats", 2, fetch_chats, true},
       {12, "send_chat", 2, send_chat, true},
       {13, "program_list", 1, program_list, true},
@@ -684,55 +682,79 @@ int makeRequest(String url, char *result, int resultLen, size_t *len)
   }
 
   void image_list()
+{
+  int page = realArgs[0];
+ const char* PHYSICS_SHEET[] = {
+  // STRAIGHT-LINE MOTION
+"STRAIGHT MOTION",
+"v = delta s / delta t",
+"s = s0 + v * delta t",
+"v_avg = (vstart + vend)/2",
+"delta s = v_avg * delta t",
+
+// ACCELERATION
+"ACCELERATION",
+"a = delta v / delta t",
+"v = vstart + a * delta t",
+"delta s = vstart * delta t + 1/2 * a * delta t^2",
+"vend^2 - vstart^2 = 2 * a * delta s",
+  // FREE FALL
+  "FREE FALL  ",
+  "v = g * t  ",
+  "h = (1/2) * g * t^2  ",
+  "t = sqrt(2 * h / g)  ",
+  "v^2 = 2 * g * h  ",
+  "g = 9.81 m/s^2  ",
+  
+  // VERTICAL THROW UP
+  "VERTICAL THROW UP  ",
+  "v = v0 - g * t  ",
+  "h = v0 * t - (1/2) * g * t^2  ",
+  "t_max = v0 / g  ",
+  "h_max = v0^2 / (2 * g)  ",
+  
+  // VERTICAL THROW DOWN
+  "VERTICAL THROW DOWN  ",
+  "v = v0 + g * t  ",
+  "h = v0 * t + (1/2) * g * t^2  ",
+  
+  // HORIZONTAL THROW
+  "HORIZONTAL THROW  ",
+  "x = v0 * t  ",
+  "h = (1/2) * g * t^2  ",
+  "v_x = const  ",
+  "v_y = g * t  ",
+  
+  // DEPTH VIA SOUND
+  "DEPTH VIA SOUND  ",
+  "Step 1: Drop object / sound pulse  ",
+  "Step 2: Measure total time t_total  ",
+  "Step 3: Approximate height:  ",
+  "h = (1/2) * g * t_total^2  ",
+  "Step 4: Correct for sound travel:  ",
+  "t_fall = t_total - h / 343  ",
+  "Step 5: Calculate depth h accurately:  ",
+  "h = (1/2) * g * (t_fall)^2  ",
+  "Notes: g = 9.81 m/s^2, 343 m/s is sound speed  ",
+  "Tip: t_total = time until sound returns to top  "
+};
+
+
+
+constexpr int PHYSICS_PAGES =
+  sizeof(PHYSICS_SHEET) / sizeof(PHYSICS_SHEET[0]);
+
+
+  if (page < 0 || page >= PHYSICS_PAGES)
   {
-    int page = realArgs[0];
-    auto url = String(SERVER) + String("/image/list?p=") + urlEncode(String(page));
-
-    size_t realsize = 0;
-    if (makeRequest(url, response, MAXSTRARGLEN, &realsize))
-    {
-      setError("error making request");
-      return;
-    }
-
-    Serial.print("response: ");
-    Serial.println(response);
-
-    setSuccess(response);
+    setError("no more pages");
+    return;
   }
 
-  void fetch_image()
-  {
-    memset(frame + 2, 0, 756);
-    // fetch image and put it into the frame variable
-    int id = realArgs[0];
-    Serial.print("id: ");
-    Serial.println(id);
+  strncpy(message, PHYSICS_SHEET[page], MAXSTRARGLEN);
+  setSuccess(message);
+}
 
-    auto url = String(SERVER) + String("/image/get?id=") + urlEncode(String(id));
-
-    size_t realsize = 0;
-    if (makeRequest(url, response, MAXHTTPRESPONSELEN, &realsize))
-    {
-      setError("error making request");
-      return;
-    }
-
-    if (realsize != PICSIZE)
-    {
-      Serial.print("response size:");
-      Serial.println(realsize);
-      setError("bad image size");
-      return;
-    }
-
-    // load the image
-    frame[0] = realsize & 0xff;
-    frame[1] = (realsize >> 8) & 0xff;
-    memcpy(&frame[2], response, 756);
-
-    setSuccess(response);
-  }
 
   void fetch_chats()
   {

@@ -4,10 +4,10 @@
 #define HTTP_USERNAME "" // not used
 #define HTTP_PASSWORD "" // not used
 
-#define WIFI_SSID "MagentaWLAN-F39Y" // Your wifi name
-#define WIFI_PASS "MagentaWLAN-F39Y" // Your wifi password
+#define WIFI_SSID "Jakob" // Your wifi name
+#define WIFI_PASS "polskikrawa" // Your wifi password
 #define SERVER "https://ti84-gpt.onrender.com" // Your server ip address
-#define CHAT_NAME "MrPixeldot" // Your name on the chat program
+#define CHAT_NAME "" // Your name on the chat program
 #define SECURE // not used
 
 #endif // SECRETS_H {CUSTOM}
