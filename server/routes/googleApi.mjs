@@ -8,7 +8,7 @@ export function googleApi() {
     const question = req.query.question ?? "";
 
     const apiKey = process.env.GOOGLE_API_KEY; // your key
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3-pro:generateContent?key=${apiKey}`;
 
     // Minimal request payload
     const body = {
@@ -17,7 +17,7 @@ export function googleApi() {
           role: "user",
           parts: [
             {
-              text: `Answer this math or physics question concisely. Only give the formula or method. KEEP IT AS SHORT AS POSSIBLE AND CORRECT! Question: ${question}`
+              text: `Answer this question concisely. Question: ${question}`
             }
           ]
         }
