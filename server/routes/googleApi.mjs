@@ -8,7 +8,7 @@ export function googleApi() {
     const question = req.query.question ?? "";
 
     const apiKey = process.env.GOOGLE_API_KEY; // your key
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3-pro:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
 
     // Minimal request payload
     const body = {
