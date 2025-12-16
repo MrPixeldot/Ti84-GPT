@@ -8,7 +8,7 @@ export function googleApi() {
     const question = req.query.question ?? "";
 
     const apiKey = process.env.GOOGLE_API_KEY; // your key
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
 
     // Minimal request payload
     const body = {
@@ -19,16 +19,11 @@ export function googleApi() {
             {
               text: `You are answering on a TI-84 calculator.
 
-Rules:
-- ONLY plain ASCII characters
-- NO Unicode
-- NO math symbols (no × ÷ √ ∫ π ≥ ≤ → etc)
-- NO markdown
-- NO bullets
-- NO newlines unless absolutely necessary
-- Use only characters: a-z A-Z 0-9 + - * / = ( ) . ,
-
-
+ABSOLUTE RULES:
+- ASCII ONLY
+- NO unicode
+- NO math symbols except + - * / =
+- NO formatting
 Question: ${question}`
             }
           ]
