@@ -17,13 +17,13 @@ export function googleApi() {
           role: "user",
           parts: [
             {
-              text: `You are answering on a TI-84 calculator.
-
+              text: `
 ABSOLUTE RULES:
 - ASCII ONLY
 - NO unicode
 - NO math symbols except + - * / =
 - NO formatting
+- SHORT AND CORRECT ANSWER
 Question: ${question}`
             }
           ]
