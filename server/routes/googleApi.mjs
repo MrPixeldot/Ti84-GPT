@@ -17,7 +17,23 @@ export function googleApi() {
           role: "user",
           parts: [
             {
-              text: `Answer this question concisely. Question: ${question}`
+              text: `You are answering on a TI-84 calculator.
+
+Rules:
+- ONLY plain ASCII characters
+- NO Unicode
+- NO math symbols (no × ÷ √ ∫ π ≥ ≤ → etc)
+- NO markdown
+- NO bullets
+- NO newlines unless absolutely necessary
+- Use only characters: a-z A-Z 0-9 + - * / = ( ) . ,
+
+Task:
+Give ONLY the correct formula or method.
+Do NOT calculate the final result.
+Be as short as possible.
+
+Question: ${question}`
             }
           ]
         }
