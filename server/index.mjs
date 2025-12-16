@@ -8,6 +8,7 @@ import { images } from "./routes/images.mjs";
 import { chat } from "./routes/chat.mjs";
 import { programs } from "./routes/programs.mjs";
 import { googleApi } from "./routes/googleApi.mjs";
+import Redis from "ioredis";
 import 'dotenv/config';
 dot.config();
 
@@ -27,6 +28,34 @@ async function main() {
       limit: "10mb",
     })
   );
+
+    // Redis (optional but recommended)
+  let redis = null;
+
+  if (process.env.REDIS_URL) {
+    redis = new Redis(process.env.REDIS_URL);
+
+    redis.on("connect", () => {
+      console.log("Redis connected");
+    });
+
+    redis.on("error", (err) => {
+      console.error("Redis error:", err);
+    });
+  }
+
+    app.get("/healthz", async (req, res) => {
+    try {
+      if (redis) {
+        await redis.ping(); // keeps Redis awake
+      }
+      res.status(200).send("OK");
+    } catch (err) {
+      console.error("Health check failed:", err);
+      res.status(500).send("NOT OK");
+    }
+  });
+
   app.use((req, res, next) => {
     console.log(req.headers.authorization);
     next();
